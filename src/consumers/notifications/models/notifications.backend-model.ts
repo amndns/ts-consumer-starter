@@ -31,14 +31,10 @@ export class NotificationConsumerPayload {
 
   @IsOptional()
   @Expose({ name: 'http_status_code', toPlainOnly: true })
-  public httpStatusCode: Date;
+  public httpStatusCode: number;
 
   @Expose({ name: 'date_created', toPlainOnly: true })
   public dateCreated: Date;
-
-  @IsOptional()
-  @Expose({ name: 'retry_count', toPlainOnly: true })
-  public retryCount: number;
 }
 
 export class NotificationWebhookPayload {
@@ -46,19 +42,22 @@ export class NotificationWebhookPayload {
   public data: Record<string, string>;
 
   @Expose({ name: 'customer_id', toPlainOnly: true })
+  @IsNotEmpty()
   public customerId: string;
 
   @Expose({ name: 'notification_type_id', toPlainOnly: true })
+  @IsNotEmpty()
   public notificationTypeId: string;
 
   @Expose({ name: 'date_created', toPlainOnly: true })
+  @IsNotEmpty()
   public dateCreated: Date;
 }
 
 export class NotificationsUpdateRequest {
-  @IsNotEmpty()
-  public deliveryStatus: DeliveryStatus;
+  @IsOptional()
+  public deliveryStatus?: DeliveryStatus;
 
-  @IsNotEmpty()
-  public httpStatusCode: number;
+  @IsOptional()
+  public httpStatusCode?: number;
 }

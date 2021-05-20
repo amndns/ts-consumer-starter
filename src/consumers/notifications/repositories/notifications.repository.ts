@@ -8,9 +8,9 @@ class NotificationsRepository extends Repository<Notification> {
     idempotencyToken: string,
     request: NotificationsUpdateRequest
   ): Promise<Notification> {
-    const { deliveryStatus, httpStatusCode } = request;
+    const { deliveryStatus = null, httpStatusCode = null } = request;
     const notification = await this.findOne({
-      idempotency_token: idempotencyToken,
+      idempotencyToken,
     });
     if (!notification) {
       throw new Error(
@@ -18,7 +18,13 @@ class NotificationsRepository extends Repository<Notification> {
       );
     }
 
-    this.merge(notification, { httpStatusCode, deliveryStatus });
+    this.merge(notification, {
+      ...(deliveryStatus ? { deliveryStatus } : {}),
+      ...(httpStatusCode ? { httpStatusCode } : {}),
+    });
+
+    console.log(notification);
+
     return this.save(notification);
   }
 }

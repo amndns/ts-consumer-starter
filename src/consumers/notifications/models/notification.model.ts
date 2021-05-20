@@ -13,6 +13,7 @@ import NotificationType from './notification-type.model';
 
 export enum DeliveryStatus {
   PENDING = 'pending',
+  RETRYING = 'retrying',
   SUCCESS = 'success',
   FAILURE = 'failure',
 }
@@ -23,9 +24,9 @@ class Notification {
   public pk: number;
 
   @IsNotEmpty()
-  @Column({ unique: true })
+  @Column({ name: 'idempotency_token', unique: true })
   @Generated('uuid')
-  public idempotency_token: string;
+  public idempotencyToken: string;
 
   @IsNotEmpty()
   @Column('jsonb')

@@ -24,11 +24,18 @@ class NotificationsController {
 
     if (message.properties.headers['x-death']) {
       const [deadQueue] = message.properties.headers['x-death'];
-      if (deadQueue.count > 10) {
+      if (deadQueue.count > 5) {
+        await this.notificationsService.updateNotification(
+          consumedNotification.idempotencyToken,
+          {
+            deliveryStatus: DeliveryStatus.FAILURE,
+          }
+        );
         this.logger.info(
           `Dropped the notification with ID: ${consumedNotification.idempotencyToken} because it exceeded the retry limit.`
         );
         message.ack();
+        return;
       }
     }
 
@@ -50,14 +57,14 @@ class NotificationsController {
       );
       message.ack();
     } catch (error) {
-      this.logger.error(error);
-      this.notificationsService.updateNotification(
+      await this.notificationsService.updateNotification(
         consumedNotification.idempotencyToken,
         {
-          deliveryStatus: DeliveryStatus.FAILURE,
+          deliveryStatus: DeliveryStatus.RETRYING,
           httpStatusCode: error.response.status ?? null,
         }
       );
+      this.logger.error(error);
       message.reject();
     }
   }

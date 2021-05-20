@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
-import CallbackDetailsManager from '../../callback/repositories/callback.manager';
+import CallbackDetailsManager from '../../callback/repositories/callback-details.manager';
 import Notification, { DeliveryStatus } from '../models/notification.model';
 import {
   NotificationsUpdateRequest,

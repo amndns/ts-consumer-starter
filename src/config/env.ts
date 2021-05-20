@@ -99,4 +99,26 @@ export const notificationsEnv = {
       messageTtl: 5000,
     },
   },
+  refund: {
+    exchange: 'notifications',
+    queue: 'refund.queue',
+    routingKey: 'refund.key',
+    deadLetterOptions: {
+      deadLetterExchange: 'notifications',
+      deadLetterQueue: 'refund.dead.queue',
+      deadLetterRoutingKey: 'refund.dead.key',
+      messageTtl: 5000,
+    },
+  },
+  linkAccount: {
+    exchange: 'notifications',
+    queue: 'link_account.queue',
+    routingKey: 'link_account.key',
+    deadLetterOptions: {
+      deadLetterExchange: 'notifications',
+      deadLetterQueue: 'link_account.dead.queue',
+      deadLetterRoutingKey: 'link_account.dead.key',
+      messageTtl: 5000,
+    },
+  },
 };
