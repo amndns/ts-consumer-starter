@@ -96,7 +96,7 @@ export const notificationsEnv = {
       deadLetterExchange: 'notifications',
       deadLetterQueue: 'create_payment.dead.queue',
       deadLetterRoutingKey: 'create_payment.dead.key',
-      messageTtl: 5000,
+      messageTtl: 10000,
     },
   },
   refund: {
@@ -107,7 +107,7 @@ export const notificationsEnv = {
       deadLetterExchange: 'notifications',
       deadLetterQueue: 'refund.dead.queue',
       deadLetterRoutingKey: 'refund.dead.key',
-      messageTtl: 5000,
+      messageTtl: 10000,
     },
   },
   linkAccount: {
@@ -118,7 +118,7 @@ export const notificationsEnv = {
       deadLetterExchange: 'notifications',
       deadLetterQueue: 'link_account.dead.queue',
       deadLetterRoutingKey: 'link_account.dead.key',
-      messageTtl: 5000,
+      messageTtl: 10000,
     },
   },
 };

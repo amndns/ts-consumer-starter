@@ -23,8 +23,6 @@ class NotificationsRepository extends Repository<Notification> {
       ...(httpStatusCode ? { httpStatusCode } : {}),
     });
 
-    console.log(notification);
-
     return this.save(notification);
   }
 }

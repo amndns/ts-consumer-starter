@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { IsNotEmpty, IsOptional } from 'class-validator';
 import { DeliveryStatus } from './notification.model';
 
@@ -38,6 +38,9 @@ export class NotificationConsumerPayload {
 }
 
 export class NotificationWebhookPayload {
+  @Exclude()
+  public idempotencyToken: string;
+
   @IsOptional()
   public data: Record<string, string>;
 
@@ -48,6 +51,12 @@ export class NotificationWebhookPayload {
   @Expose({ name: 'notification_type_id', toPlainOnly: true })
   @IsNotEmpty()
   public notificationTypeId: string;
+
+  @Exclude()
+  public deliveryStatus: DeliveryStatus;
+
+  @Exclude()
+  public httpStatusCode: number;
 
   @Expose({ name: 'date_created', toPlainOnly: true })
   @IsNotEmpty()

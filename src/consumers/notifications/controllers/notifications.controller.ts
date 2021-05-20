@@ -9,6 +9,8 @@ import {
 } from '../models/notifications.backend-model';
 import NotificationsService from '../services/notifications.service';
 
+const RETRY_LIMIT = 5;
+
 @Service()
 class NotificationsController {
   constructor(
@@ -24,7 +26,7 @@ class NotificationsController {
 
     if (message.properties.headers['x-death']) {
       const [deadQueue] = message.properties.headers['x-death'];
-      if (deadQueue.count > 5) {
+      if (deadQueue.count > RETRY_LIMIT) {
         await this.notificationsService.updateNotification(
           consumedNotification.idempotencyToken,
           {
