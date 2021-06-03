@@ -1,5 +1,5 @@
 {
-  "name": "ts-rest-starter",
+  "name": "ts-consumer-starter",
   "version": "1.0.0",
   "description": "A starter kit for building RabbitMQ Consumer services using NodeJS and TypeScript.",
   "author": "Adel Ismael Mandanas",
