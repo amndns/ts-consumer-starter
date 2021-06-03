@@ -5,7 +5,7 @@ import NotificationsController from '../controllers/notifications.controller';
 
 const config = {
   ...rabbitmqEnv,
-  ...notificationsEnv.linkAccount,
+  ...notificationsEnv.main,
 };
 
 const callback = (notification: Message): void => {
@@ -13,5 +13,7 @@ const callback = (notification: Message): void => {
   notificationsController.processMessage(notification);
 };
 
-const linkAccountConsumer = new RabbitConsumer(config, callback);
-export default linkAccountConsumer;
+const notificationsConsumer = new RabbitConsumer(config, callback);
+notificationsConsumer.declareAdditionalResources(notificationsEnv.dead);
+
+export default notificationsConsumer;

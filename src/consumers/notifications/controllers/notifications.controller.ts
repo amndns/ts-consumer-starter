@@ -2,7 +2,6 @@ import { consumerMessage, Message } from '@amndns/amqp-ts';
 import { Logger, LoggerInterface } from '@amndns/service-utils/logger';
 import { Service } from 'typedi';
 import { notificationMessage } from '../../../utils';
-import { DeliveryStatus } from '../models/notification.model';
 import {
   NotificationConsumerPayload,
   NotificationWebhookPayload,
@@ -27,14 +26,8 @@ class NotificationsController {
     if (message.properties.headers['x-death']) {
       const [deadQueue] = message.properties.headers['x-death'];
       if (deadQueue.count > RETRY_LIMIT) {
-        await this.notificationsService.updateNotification(
-          consumedNotification.idempotencyToken,
-          {
-            deliveryStatus: DeliveryStatus.FAILURE,
-          }
-        );
         this.logger.info(
-          `Dropped the notification with ID: ${consumedNotification.idempotencyToken} because it exceeded the retry limit.`
+          `Dropped the notification because it exceeded the retry limit.`
         );
         message.ack();
         return;
@@ -48,9 +41,7 @@ class NotificationsController {
 
     try {
       await this.notificationsService.sendWebhookNotification(
-        consumedNotification.idempotencyToken,
-        consumedNotification.customerId,
-        consumedNotification.notificationTypeId,
+        'https://reqres.in/api/users',
         transformedNotification
       );
 
@@ -59,13 +50,6 @@ class NotificationsController {
       );
       message.ack();
     } catch (error) {
-      await this.notificationsService.updateNotification(
-        consumedNotification.idempotencyToken,
-        {
-          deliveryStatus: DeliveryStatus.RETRYING,
-          httpStatusCode: error.response.status ?? null,
-        }
-      );
       this.logger.error(error);
       message.reject();
     }

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@amndns/amqp-ts@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@amndns/amqp-ts/-/amqp-ts-1.0.12.tgz#35798959a10644ca3f1827a101d09a4c5a95a975"
-  integrity sha512-8IYg4VYCJJTMzPbJKxCS1NEe0yniun2njdDjWElGN2cMFPx2lDQ6V5RjHlweA/ZpvFBjtQKo6e5fEuT+nr1haw==
+"@amndns/amqp-ts@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@amndns/amqp-ts/-/amqp-ts-1.0.13.tgz#088d94caa598e79d4a9088e9a3751da2451c02db"
+  integrity sha512-aCNMGK9OnvEa0vvZ5kboks+gBTK6IYJXV8fF1i9XTTx+eePeIF1hfdn3F0ppANF8e3HAGyCGu0ozPRYvYun/qA==
   dependencies:
     amqp-ts "^1.8.0"
     class-transformer "^0.4.0"

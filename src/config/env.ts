@@ -88,37 +88,25 @@ export const redisEnv = {
 };
 
 export const notificationsEnv = {
-  createPayment: {
+  main: {
     exchange: 'notifications',
-    queue: 'create_payment.queue',
-    routingKey: 'create_payment.key',
+    queue: 'notifications.queue',
+    routingKey: 'notifications.key',
     deadLetterOptions: {
       deadLetterExchange: 'notifications',
-      deadLetterQueue: 'create_payment.dead.queue',
-      deadLetterRoutingKey: 'create_payment.dead.key',
-      messageTtl: 10000,
+      deadLetterRoutingKey: 'notifications.dead.key',
     },
   },
-  refund: {
+  dead: {
     exchange: 'notifications',
-    queue: 'refund.queue',
-    routingKey: 'refund.key',
-    deadLetterOptions: {
-      deadLetterExchange: 'notifications',
-      deadLetterQueue: 'refund.dead.queue',
-      deadLetterRoutingKey: 'refund.dead.key',
-      messageTtl: 10000,
+    queue: 'notifications.dead.queue',
+    queueOptions: {
+      messageTtl: 5000,
     },
-  },
-  linkAccount: {
-    exchange: 'notifications',
-    queue: 'link_account.queue',
-    routingKey: 'link_account.key',
+    routingKey: 'notifications.dead.key',
     deadLetterOptions: {
       deadLetterExchange: 'notifications',
-      deadLetterQueue: 'link_account.dead.queue',
-      deadLetterRoutingKey: 'link_account.dead.key',
-      messageTtl: 10000,
+      deadLetterRoutingKey: 'notifications.key',
     },
   },
 };
